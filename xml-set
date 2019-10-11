@@ -1,0 +1,13 @@
+#!/bin/sh
+
+xpath="$1"
+value="$2"
+file="$3"
+
+xmllint --shell "${file}" <<EOF_XML_SHELL >> /dev/null
+    cd $xpath
+    set $value
+    save
+    bye
+EOF_XML_SHELL
+
