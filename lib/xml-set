@@ -4,7 +4,14 @@ xpath="$1"
 value="$2"
 file="$3"
 
-xmllint --shell "${file}" <<EOF_XML_SHELL >> /dev/null
+shift 3
+
+if [[ -z "$file" ]]; then
+    echo "Usage: xml-set <xpath> <value> <file> [ <xmllint options> ]" >&2
+    exit 1
+fi
+
+xmllint "$@" --shell "${file}" <<EOF_XML_SHELL >> /dev/null
     cd $xpath
     set $value
     save
